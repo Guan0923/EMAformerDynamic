@@ -84,6 +84,7 @@ if __name__ == '__main__':
     parser.add_argument('--auto_cycle', type=str2bool, default=True,
                         help='whether to ignore external cycle_index and estimate dominant period automatically')
     parser.add_argument('--output_proj_dropout', type=float, default=0.1, help='dropout for output projection')
+    parser.add_argument('--token_k', type=int, default=3, help='token_k for EMAformer_hybrid_phase_token_k model, top-k frequency for period estimation')
     # GPU
     parser.add_argument('--use_gpu', type=str2bool, default=True, help='use gpu')
     parser.add_argument('--gpu', type=int, default=0, help='gpu')

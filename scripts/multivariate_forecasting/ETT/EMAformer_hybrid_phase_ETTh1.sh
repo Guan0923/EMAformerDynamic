@@ -13,6 +13,8 @@ else
 fi
 
 model_name=EMAformer_hybrid_phase
+#sym:auto_cycle=true|false
+auto_cycle=true
 
 "$PYTHON_BIN" -u run.py \
   --is_training 1 \
@@ -34,7 +36,8 @@ model_name=EMAformer_hybrid_phase
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24 
+  --cycle 24 \
+  --auto_cycle "$auto_cycle"
 
 "$PYTHON_BIN" -u run.py \
   --is_training 1 \
@@ -56,7 +59,8 @@ model_name=EMAformer_hybrid_phase
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24 
+  --cycle 24 \
+  --auto_cycle "$auto_cycle"
 
 "$PYTHON_BIN" -u run.py \
   --is_training 1 \
@@ -78,7 +82,8 @@ model_name=EMAformer_hybrid_phase
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24 
+  --cycle 24 \
+  --auto_cycle "$auto_cycle"
 
 "$PYTHON_BIN" -u run.py \
   --is_training 1 \
@@ -101,4 +106,5 @@ model_name=EMAformer_hybrid_phase
   --output_proj_dropout 0.5 \
   --itr 1 \
   --patience 5 \
-  --cycle 24 
+  --cycle 24 \
+  --auto_cycle "$auto_cycle"

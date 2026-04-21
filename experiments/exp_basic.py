@@ -6,6 +6,10 @@ from model.EMAformerDynamic_fixed import Model as EMAformerDynamic
 from model.EMAformerDynamic_fixed import EMAformerDynamicZeroShot
 from model.EMAformerDynamic_fixed import EMAformerDynamicTransfer
 
+from model.EMAformer_hybrid_channel import Model as EMAformerHybridChannel
+from model.EMAformer_hybrid_joint import Model as EMAformerHybridJoint
+from model.EMAformer_hybrid_phase import Model as EMAformerHybridPhase
+from model.EMAformer_hybrid_phase_token_k import Model as EMAformerHybridPhaseTokenK
 
 class Exp_Basic_Fixed(object):
     """
@@ -34,6 +38,11 @@ class Exp_Basic_Fixed(object):
             'EMAformerDynamic': EMAformerDynamic,
             'EMAformerDynamicZeroShot': EMAformerDynamicZeroShot,
             'EMAformerDynamicTransfer': EMAformerDynamicTransfer,
+            # 混合护甲系列（保持不变）
+            'EMAformerHybridChannel': EMAformerHybridChannel,
+            'EMAformerHybridJoint': EMAformerHybridJoint,
+            'EMAformerHybridPhase': EMAformerHybridPhase,
+            'EMAformerHybridPhaseTokenK': EMAformerHybridPhaseTokenK
         }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)
