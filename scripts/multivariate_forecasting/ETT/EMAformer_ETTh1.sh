@@ -1,8 +1,20 @@
 
+#!/bin/bash
+
+set -euo pipefail
+
+if command -v python >/dev/null 2>&1; then
+  PYTHON_BIN=python
+elif command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN=python3
+else
+  echo "Error: python/python3 not found in PATH"
+  exit 127
+fi
 
 model_name=EMAformer
 
-python -u run.py \
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \
@@ -24,7 +36,7 @@ python -u run.py \
   --itr 1 \
   --cycle 24 
 
-python -u run.py \
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \
@@ -46,7 +58,7 @@ python -u run.py \
   --itr 1 \
   --cycle 24 
 
-python -u run.py \
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \
@@ -68,7 +80,7 @@ python -u run.py \
   --itr 1 \
   --cycle 24 
 
-python -u run.py \
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \

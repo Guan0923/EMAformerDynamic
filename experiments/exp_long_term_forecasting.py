@@ -26,7 +26,12 @@ class Exp_Long_Term_Forecast_Fixed(Exp_Basic_Fixed):
         super(Exp_Long_Term_Forecast_Fixed, self).__init__(args)
 
     def _build_model(self):
-        model = self.model_dict[self.args.model].Model(self.args).float()
+        model_entry = self.model_dict[self.args.model]
+        # Support both module-style registry entries (xxx.Model) and direct class entries.
+        if hasattr(model_entry, 'Model'):
+            model = model_entry.Model(self.args).float()
+        else:
+            model = model_entry(self.args).float()
 
         # Optional: initialize from an existing checkpoint (e.g., EMAformerDynamic -> ZeroShot).
         pretrained_path = getattr(self.args, 'pretrained_path', '')
@@ -372,6 +377,7 @@ class Exp_Long_Term_Forecast_Fixed(Exp_Basic_Fixed):
         return
 
 
-    # Backward-compatible aliases expected by run.py.
-    Exp_Long_Term_Forecast = Exp_Long_Term_Forecast_Fixed
-    Exp_Long_Term_Forecast_Partial = Exp_Long_Term_Forecast_Fixed
+
+# Backward-compatible aliases expected by run.py.
+Exp_Long_Term_Forecast = Exp_Long_Term_Forecast_Fixed
+Exp_Long_Term_Forecast_Partial = Exp_Long_Term_Forecast_Fixed
