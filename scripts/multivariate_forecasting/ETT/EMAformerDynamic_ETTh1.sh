@@ -4,6 +4,7 @@
 # 使用方法: bash scripts/multivariate_forecasting/ETT/EMAformerDynamic_ETTh1.sh
 
 model_name=EMAformerDynamic
+auto_cycle=true
 
 python -u run.py \
   --is_training 1 \
@@ -25,7 +26,8 @@ python -u run.py \
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24
+  --cycle 24 \
+  --auto_cycle $auto_cycle
 
 python -u run.py \
   --is_training 1 \
@@ -47,7 +49,8 @@ python -u run.py \
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24
+  --cycle 24 \
+  --auto_cycle $auto_cycle
 
 python -u run.py \
   --is_training 1 \
@@ -69,7 +72,8 @@ python -u run.py \
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24
+  --cycle 24 \
+  --auto_cycle $auto_cycle
 
 python -u run.py \
   --is_training 1 \
@@ -92,4 +96,5 @@ python -u run.py \
   --output_proj_dropout 0.5 \
   --itr 1 \
   --patience 5 \
-  --cycle 24
+  --cycle 24 \
+  --auto_cycle $auto_cycle

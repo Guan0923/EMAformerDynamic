@@ -1,19 +1,25 @@
+
 #!/bin/bash
 
-# EMAformerDynamicZeroShot (fixed backend) - ETTh1 实验脚本
-# 使用方法: bash scripts/multivariate_forecasting/ETT/EMAformerDynamicZeroShot_ETTh1.sh
+set -euo pipefail
 
-model_name=EMAformerDynamicZeroShot
-# 可选：填写预训练权重路径（例如 EMAformerDynamic 训练得到的 checkpoint）
-pretrained_path=""
+if command -v python >/dev/null 2>&1; then
+  PYTHON_BIN=python
+elif command -v python3 >/dev/null 2>&1; then
+  PYTHON_BIN=python3
+else
+  echo "Error: python/python3 not found in PATH"
+  exit 127
+fi
 
-python -u run.py \
+model_name=EMAformer_hybrid_channel
+
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \
-  --model_id ETTh1_ZeroShot_96_96 \
+  --model_id ETTh1_96_96 \
   --model $model_name \
-  --pretrained_path "$pretrained_path" \
   --data ETTh1 \
   --features M \
   --seq_len 96 \
@@ -22,21 +28,20 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp_ZeroShot' \
+  --des 'Exp' \
   --d_model 256 \
   --n_heads 4 \
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24
+  --cycle 24 
 
-python -u run.py \
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \
-  --model_id ETTh1_ZeroShot_96_192 \
+  --model_id ETTh1_96_192 \
   --model $model_name \
-  --pretrained_path "$pretrained_path" \
   --data ETTh1 \
   --features M \
   --seq_len 96 \
@@ -45,21 +50,20 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp_ZeroShot' \
+  --des 'Exp' \
   --d_model 256 \
   --n_heads 4 \
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24
+  --cycle 24 
 
-python -u run.py \
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \
-  --model_id ETTh1_ZeroShot_96_336 \
+  --model_id ETTh1_96_336 \
   --model $model_name \
-  --pretrained_path "$pretrained_path" \
   --data ETTh1 \
   --features M \
   --seq_len 96 \
@@ -68,21 +72,20 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp_ZeroShot' \
+  --des 'Exp' \
   --d_model 256 \
   --n_heads 4 \
   --d_ff 256 \
   --output_proj_dropout 0.3 \
   --itr 1 \
-  --cycle 24
+  --cycle 24 
 
-python -u run.py \
+"$PYTHON_BIN" -u run.py \
   --is_training 1 \
   --root_path ./dataset/ETT-small/ \
   --data_path ETTh1.csv \
-  --model_id ETTh1_ZeroShot_96_720 \
+  --model_id ETTh1_96_720 \
   --model $model_name \
-  --pretrained_path "$pretrained_path" \
   --data ETTh1 \
   --features M \
   --seq_len 96 \
@@ -91,11 +94,11 @@ python -u run.py \
   --enc_in 7 \
   --dec_in 7 \
   --c_out 7 \
-  --des 'Exp_ZeroShot' \
+  --des 'Exp' \
   --d_model 256 \
   --n_heads 4 \
   --d_ff 256 \
   --output_proj_dropout 0.5 \
   --itr 1 \
   --patience 5 \
-  --cycle 24
+  --cycle 24 

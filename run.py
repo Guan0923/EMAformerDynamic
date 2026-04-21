@@ -81,6 +81,8 @@ if __name__ == '__main__':
     parser.add_argument('--lradj', type=str, default='type1', choices=['type1', 'type2', 'type3'], help='adjust learning rate')
     parser.add_argument('--use_amp', action='store_true', help='use automatic mixed precision training', default=False)
     parser.add_argument('--cycle', type=int, default=24, help='cycle length')
+    parser.add_argument('--auto_cycle', type=str2bool, default=True,
+                        help='whether to ignore external cycle_index and estimate dominant period automatically')
     parser.add_argument('--output_proj_dropout', type=float, default=0.1, help='dropout for output projection')
     # GPU
     parser.add_argument('--use_gpu', type=str2bool, default=True, help='use gpu')

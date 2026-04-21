@@ -17,6 +17,7 @@ fi
 #   bash scripts/multivariate_forecasting/EMAformerDynamic_ETTh1_step24.sh
 
 model_name=EMAformerDynamic
+auto_cycle=true
 seq_len=96
 start_pred=24
 end_pred=96
@@ -55,5 +56,6 @@ for pred_len in $(seq "$start_pred" "$step_pred" "$end_pred"); do
     --output_proj_dropout "$output_proj_dropout" \
     --itr 1 \
     --cycle 24 \
+    --auto_cycle "$auto_cycle" \
     "${patience_args[@]}"
 done
