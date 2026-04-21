@@ -12,8 +12,3 @@ from model.iReformer import Model as iReformer
 from model.iFlowformer import Model as iFlowformer
 from model.iFlashformer import Model as iFlashformer
 from model.EMAformer import Model as EMAformer
-
-# 动态嵌入护甲系列
-from model.EMAformerDynamic import Model as EMAformerDynamic
-from model.EMAformerDynamic import EMAformerDynamicZeroShot
-from model.EMAformerDynamic import EMAformerDynamicTransfer
