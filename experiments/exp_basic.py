@@ -10,6 +10,8 @@ from model.EMAformer_hybrid_channel import Model as EMAformerHybridChannel
 from model.EMAformer_hybrid_joint import Model as EMAformerHybridJoint
 from model.EMAformer_hybrid_phase import Model as EMAformerHybridPhase
 from model.EMAformer_hybrid_phase_token_k import Model as EMAformerHybridPhaseTokenK
+from model.EMAformer_mosaic import Model as EMAformerMosaic
+from model.EMAformer_residual_gated import Model as EMAformerResidualGated
 
 class Exp_Basic_Fixed(object):
     """
@@ -42,7 +44,9 @@ class Exp_Basic_Fixed(object):
             'EMAformerHybridChannel': EMAformerHybridChannel,
             'EMAformerHybridJoint': EMAformerHybridJoint,
             'EMAformerHybridPhase': EMAformerHybridPhase,
-            'EMAformerHybridPhaseTokenK': EMAformerHybridPhaseTokenK
+            'EMAformerHybridPhaseTokenK': EMAformerHybridPhaseTokenK,
+            'EMAformerMosaic': EMAformerMosaic,
+            'EMAformerResidualGated': EMAformerResidualGated,
         }
         self.device = self._acquire_device()
         self.model = self._build_model().to(self.device)

@@ -11,9 +11,13 @@ result_long_term_forecast.txt 结果解析工具
 """
 
 import re
-import csv
 import os
 from pathlib import Path
+
+try:
+    import pandas as pd
+except ImportError:
+    pd = None
 
 
 def parse_setting(setting_line):
@@ -65,7 +69,8 @@ def parse_setting(setting_line):
     # model_id 通常包含数据集和预测长度信息，如 ETTh1_96_96 或 ETTh1_Dynamic_96_96
     model_name_candidates = ['EMAformer', 'EMAformerDynamic', 'EMAformer_hybrid_channel', 
                              'EMAformer_hybrid_phase', 'EMAformer_hybrid_joint',
-                             'iInformer', 'iReformer', 'iFlowformer', 'iFlashformer']
+                             'iInformer', 'iReformer', 'iFlowformer', 'iFlashformer',
+                             'TimeMosaic']
     
     model_idx = -1
     model_name = ''
@@ -203,7 +208,7 @@ def parse_results_file(input_file):
             continue
         
         # 检查是否是 setting 行（通常包含 model 名称）
-        if any(model in line for model in ['EMAformer', 'iInformer', 'iReformer', 'iFlowformer', 'iFlashformer']):
+        if any(model in line for model in ['EMAformer', 'iInformer', 'iReformer', 'iFlowformer', 'iFlashformer', 'TimeMosaic']):
             setting_line = line
             
             # 下一行应该是指标行
@@ -226,10 +231,14 @@ def parse_results_file(input_file):
     return results
 
 
-def write_csv(results, output_file):
-    """将结果写入 CSV 文件"""
+def write_excel(results, output_file):
+    """将结果写入 Excel 文件"""
     if not results:
         print("警告: 没有解析到任何结果")
+        return
+    
+    if pd is None:
+        print("错误: 未安装 pandas，无法导出 Excel。请运行: pip install pandas openpyxl")
         return
     
     fieldnames = [
@@ -241,12 +250,21 @@ def write_csv(results, output_file):
         'mse', 'mae'
     ]
     
-    with open(output_file, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(results)
+    # 确保所有记录都包含相同的列
+    normalized_results = []
+    for record in results:
+        normalized = {k: record.get(k, '') for k in fieldnames}
+        normalized_results.append(normalized)
     
-    print(f"成功写入 {len(results)} 条记录到 {output_file}")
+    df = pd.DataFrame(normalized_results, columns=fieldnames)
+    
+    try:
+        df.to_excel(output_file, index=False, engine='openpyxl')
+        print(f"成功写入 {len(results)} 条记录到 {output_file}")
+    except ImportError:
+        print("错误: 未安装 openpyxl，无法导出 Excel。请运行: pip install openpyxl")
+    except Exception as e:
+        print(f"写入 Excel 时出错: {e}")
 
 
 def print_summary(results):
@@ -300,7 +318,7 @@ def main():
     """主函数"""
     # 默认文件路径
     input_file = 'result_long_term_forecast.txt'
-    output_file = 'result_long_term_forecast.csv'
+    output_file = 'result_long_term_forecast.xlsx'
     
     # 检查文件是否存在
     if not os.path.exists(input_file):
@@ -328,13 +346,13 @@ def main():
     
     print(f"成功解析 {len(results)} 条记录")
     
-    # 写入 CSV
-    write_csv(results, output_path)
+    # 写入 Excel
+    write_excel(results, output_path)
     
     # 打印摘要
     print_summary(results)
     
-    print(f"\n完成! CSV 文件已保存到: {output_path}")
+    print(f"\n完成! Excel 文件已保存到: {output_path}")
 
 
 if __name__ == '__main__':

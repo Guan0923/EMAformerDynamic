@@ -83,8 +83,20 @@ if __name__ == '__main__':
     parser.add_argument('--cycle', type=int, default=24, help='cycle length')
     parser.add_argument('--auto_cycle', type=str2bool, default=True,
                         help='whether to ignore external cycle_index and estimate dominant period automatically')
+    parser.add_argument('--use_dynamic_channel_residual', type=str2bool, default=True,
+                        help='use dynamic channel residual correction in EMAformerResidualGated')
+    parser.add_argument('--use_dynamic_phase_residual', type=str2bool, default=True,
+                        help='use dynamic phase residual correction in EMAformerResidualGated')
+    parser.add_argument('--use_dynamic_joint_residual', type=str2bool, default=True,
+                        help='use dynamic joint residual correction in EMAformerResidualGated')
+    parser.add_argument('--gate_init_bias', type=float, default=-4.0,
+                        help='initial bias for residual gates before sigmoid in EMAformerResidualGated')
     parser.add_argument('--output_proj_dropout', type=float, default=0.1, help='dropout for output projection')
     parser.add_argument('--token_k', type=int, default=3, help='token_k for EMAformer_hybrid_phase_token_k model, top-k frequency for period estimation')
+    parser.add_argument('--patch_len_list', type=str, default='[4,8,16]',
+                        help='candidate patch lengths for adaptive chunking models (e.g. EMAformerMosaic)')
+    parser.add_argument('--num_latent_token', type=int, default=4,
+                        help='number of latent prompt tokens for chunking models (e.g. EMAformerMosaic)')
     # GPU
     parser.add_argument('--use_gpu', type=str2bool, default=True, help='use gpu')
     parser.add_argument('--gpu', type=int, default=0, help='gpu')
